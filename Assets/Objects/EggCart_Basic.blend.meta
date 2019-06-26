@@ -1,0 +1,208 @@
+fileFormatVersion: 2
+guid: da43540ae063bd147b5eeb336364726e
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BackLeftStrut
+    100002: BackLeftWheel
+    100004: BackRightStrut
+    100006: BackRightWheel
+    100008: BaseFrame
+    100010: Cube
+    100012: Cube_001
+    100014: //RootNode
+    100016: EggPad
+    100018: EggPadHolder
+    100020: EggWindow
+    100022: EggWindowFrame
+    100024: FrontLeftStrut
+    100026: FrontLeftWheel
+    100028: FrontRightStrut
+    100030: FrontRightWheel
+    100032: Icosphere
+    100034: MetalConnectors
+    100036: TheEgg
+    100038: Thruster_3PartSmooth
+    100040: EggCollider
+    400000: BackLeftStrut
+    400002: BackLeftWheel
+    400004: BackRightStrut
+    400006: BackRightWheel
+    400008: BaseFrame
+    400010: Cube
+    400012: Cube_001
+    400014: //RootNode
+    400016: EggPad
+    400018: EggPadHolder
+    400020: EggWindow
+    400022: EggWindowFrame
+    400024: FrontLeftStrut
+    400026: FrontLeftWheel
+    400028: FrontRightStrut
+    400030: FrontRightWheel
+    400032: Icosphere
+    400034: MetalConnectors
+    400036: TheEgg
+    400038: Thruster_3PartSmooth
+    400040: EggCollider
+    2100000: unnamed
+    2100002: Material
+    2100004: Material_009
+    2100006: Material_008
+    2100008: Material_013
+    2100010: Material_006
+    2100012: Material_005
+    2100014: Material_001
+    2100016: Material_003
+    2100018: Material_010
+    2100020: Material_007
+    2100022: Material_014
+    2100024: Material_012
+    2100026: Material_011
+    2100028: Material_004
+    2100030: Material_002
+    2300000: BackLeftStrut
+    2300002: BackLeftWheel
+    2300004: BackRightStrut
+    2300006: BackRightWheel
+    2300008: BaseFrame
+    2300010: Cube
+    2300012: Cube_001
+    2300014: EggPad
+    2300016: EggPadHolder
+    2300018: EggWindow
+    2300020: EggWindowFrame
+    2300022: FrontLeftStrut
+    2300024: FrontLeftWheel
+    2300026: FrontRightStrut
+    2300028: FrontRightWheel
+    2300030: Icosphere
+    2300032: MetalConnectors
+    2300034: TheEgg
+    2300036: Thruster_3PartSmooth
+    2300038: EggCollider
+    3300000: BackLeftStrut
+    3300002: BackLeftWheel
+    3300004: BackRightStrut
+    3300006: BackRightWheel
+    3300008: BaseFrame
+    3300010: Cube
+    3300012: Cube_001
+    3300014: EggPad
+    3300016: EggPadHolder
+    3300018: EggWindow
+    3300020: EggWindowFrame
+    3300022: FrontLeftStrut
+    3300024: FrontLeftWheel
+    3300026: FrontRightStrut
+    3300028: FrontRightWheel
+    3300030: Icosphere
+    3300032: MetalConnectors
+    3300034: TheEgg
+    3300036: Thruster_3PartSmooth
+    3300038: EggCollider
+    4300000: Icosphere
+    4300002: EggPad
+    4300004: MetalConnectors
+    4300006: EggPadHolder
+    4300008: BackLeftStrut
+    4300010: EggWindowFrame
+    4300012: EggWindow
+    4300014: BackRightWheel
+    4300016: TheEgg
+    4300018: Cube
+    4300020: BaseFrame
+    4300022: FrontRightWheel
+    4300024: BackLeftWheel
+    4300026: FrontLeftWheel
+    4300028: Thruster_3PartSmooth
+    4300030: BackRightStrut
+    4300032: FrontLeftStrut
+    4300034: FrontRightStrut
+    4300036: Cube_001
+    4300038: EggCollider
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

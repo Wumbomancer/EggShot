@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1847004267773270}
+  m_IsPrefabAsset: 1
+--- !u!1 &1847004267773270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4211871064137130}
+  - component: {fileID: 114673838497557620}
+  - component: {fileID: 114463718256634160}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4211871064137130
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847004267773270}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.16, y: 40.93121, z: -15.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114463718256634160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847004267773270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ead7562dc8618c4386101b37edd42be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterVolume: {fileID: 24100000, guid: dddcf4f412b7e0d48a7552a0e27a9ecd, type: 2}
+--- !u!114 &114673838497557620
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847004267773270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9040f6016201f45985ca344af6c8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Boost
+    clip: {fileID: 8300000, guid: fdec6f82c01f3a64ebe516152d307fe2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    MainAudio: {fileID: 24300002, guid: dddcf4f412b7e0d48a7552a0e27a9ecd, type: 2}
+    source: {fileID: 0}
+  - name: MenuPing
+    clip: {fileID: 8300000, guid: a62beb58b2a25f24a9ae792a7dee6577, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    MainAudio: {fileID: 24300002, guid: dddcf4f412b7e0d48a7552a0e27a9ecd, type: 2}
+    source: {fileID: 0}
+  - name: MainTheme
+    clip: {fileID: 8300000, guid: 1a372dcf373da99428f139ec20c82d91, type: 3}
+    volume: 0.3
+    pitch: 1.2
+    loop: 0
+    MainAudio: {fileID: 24300002, guid: dddcf4f412b7e0d48a7552a0e27a9ecd, type: 2}
+    source: {fileID: 0}
+  - name: WelcomeToEggshot
+    clip: {fileID: 8300000, guid: 497bdd288d75ecf45a98645840ea8575, type: 3}
+    volume: 0.5
+    pitch: 1.7
+    loop: 0
+    MainAudio: {fileID: 24300002, guid: dddcf4f412b7e0d48a7552a0e27a9ecd, type: 2}
+    source: {fileID: 0}
+  - name: HappyMainSong
+    clip: {fileID: 8300000, guid: 989dde5f612168342ac09d1115e575c7, type: 3}
+    volume: 0.507
+    pitch: 1
+    loop: 1
+    MainAudio: {fileID: 24300002, guid: dddcf4f412b7e0d48a7552a0e27a9ecd, type: 2}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    MainAudio: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    MainAudio: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    MainAudio: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    MainAudio: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    MainAudio: {fileID: 0}
+    source: {fileID: 0}
