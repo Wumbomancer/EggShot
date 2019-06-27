@@ -317,14 +317,13 @@ GameObject:
   - component: {fileID: 199010120581321888}
   - component: {fileID: 198910170061387812}
   - component: {fileID: 135993894185217822}
-  - component: {fileID: 114643817288128920}
   m_Layer: 0
   m_Name: Afterburner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1627069293234098
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +623,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1053378027214626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.71, y: 74, z: -27.35}
+  m_LocalPosition: {x: -205.31781, y: -260.87564, z: 377.51642}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4353054333235892}
@@ -646,7 +645,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668859930311680}
   m_LocalRotation: {x: 0.01791441, y: -0, z: -0, w: 0.99983954}
-  m_LocalPosition: {x: 0.18, y: 1.81, z: -1.97}
+  m_LocalPosition: {x: 0.18, y: 1.91, z: -2.21}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 4805116204301956}
@@ -715,7 +714,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1586121678892438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.69, z: -1.98}
+  m_LocalPosition: {x: -0, y: 1.69, z: -1.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4879650764077094}
@@ -846,7 +845,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1901737556306076}
   m_LocalRotation: {x: -0.7071068, y: -0.7071067, z: -0.00000007870265, w: 0.00000010961128}
-  m_LocalPosition: {x: -0.6122618, y: -0.0584808, z: -3.3138862}
+  m_LocalPosition: {x: -0.612, y: -0.058, z: -3.091}
   m_LocalScale: {x: 0.62957096, y: 0.62957096, z: 0.6295711}
   m_Children:
   - {fileID: 4517352722793556}
@@ -1795,21 +1794,6 @@ MonoBehaviour:
   Exhast: {fileID: 198341154361352440}
   rotateSpeed: 0.3
   timeSinceDetach: 0
---- !u!114 &114643817288128920
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1586121678892438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d44a238286f6904198ab78e914c229d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectAngle: 20
-  effectWidth: 2
-  effectDistance: 32
-  force: 140
 --- !u!114 &114650049938937012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1829,7 +1813,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114900179238161176}
   viewIdField: 0
-  InstantiationId: 0
+  InstantiationId: 1
   isRuntimeInstantiated: 0
 --- !u!114 &114735992953929362
 MonoBehaviour:
@@ -7054,7 +7038,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 1.2178404
+    angle: 10.12
     length: 5
     boxThickness: {x: 1, y: 1, z: 1}
     radiusThickness: 0.5
@@ -7084,7 +7068,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 1
     radius:
-      value: 0.7
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -14507,7 +14491,7 @@ ParticleSystem:
       type: 0
       properties: 0
   LightsModule:
-    enabled: 0
+    enabled: 1
     ratio: 0
     light: {fileID: 0}
     randomDistribution: 1

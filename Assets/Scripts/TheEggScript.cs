@@ -63,6 +63,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
             GetDriving();
             BoostCheck();
             RotateControl();
+         
 
 
 
@@ -124,7 +125,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         float braking;
         bool ebrake;
 
-        ebrake = Input.GetButton("LB_1");
+        ebrake = Input.GetButton("RB_1");
         
         motor = maxMotorTorque * Input.GetAxis(SavedInputs.gas);
         steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1")/(Mathf.Sqrt(GetComponent<Rigidbody>().velocity.magnitude + 100f)-9);
@@ -134,7 +135,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         {
             if(startedBraking == false)
             {
-                WheelFrictionCurve newWheel = new WheelFrictionCurve
+                /*WheelFrictionCurve newWheel = new WheelFrictionCurve
                 {
                     asymptoteSlip = .2f,
                     asymptoteValue = .2f,
@@ -144,9 +145,12 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
                 LFWheel.sidewaysFriction = newWheel;
                 LRWheel.sidewaysFriction = newWheel;
                 RFWheel.sidewaysFriction = newWheel;
-                RRWheel.sidewaysFriction = newWheel;
+                RRWheel.sidewaysFriction = newWheel;*/
                 startedBraking = true;
-                
+                RaycastHit hit;
+                Physics.Raycast(this.transform.position, Vector3.down, out hit);
+                hit.collider.material.dynamicFriction = .1f;
+                Debug.Log("Casting Ray"); // You should draw this bitch
             }
             
             
@@ -159,7 +163,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         {
             if(startedBraking)
             {
-                WheelFrictionCurve newWheel = new WheelFrictionCurve
+             /*   WheelFrictionCurve newWheel = new WheelFrictionCurve
                 {
                     asymptoteSlip = .6f,
                     asymptoteValue = .6f,
@@ -170,7 +174,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
                 LRWheel.sidewaysFriction = newWheel;
                 RFWheel.sidewaysFriction = newWheel;
                 RRWheel.sidewaysFriction = newWheel;
-                startedBraking = false;
+                startedBraking = false;*/
                 
             }
             braking = 0;

@@ -136,6 +136,7 @@ public class OptionsMenu : MonoBehaviour {
 
         FindObjectOfType<ControlsMenu>().isActive = true;
         isActive = false;
+        FindObjectOfType<MainCameraScript>().ClearFlags();
         FindObjectOfType<MainCameraScript>().movetoControls = true;
         FindObjectOfType<MainCameraScript>().timeDelay = 0f;
         Sound.GetComponent<MeshRenderer>().material = NonHighlightedMaterial;

@@ -451,6 +451,16 @@ Prefab:
       propertyPath: DetachedCameraPosition
       value: 
       objectReference: {fileID: 2025748744}
+    - target: {fileID: 114673605247445986, guid: 595a2f1f0ac213446bd2aff40b003f77,
+        type: 2}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114673605247445986, guid: 595a2f1f0ac213446bd2aff40b003f77,
+        type: 2}
+      propertyPath: InstantiationId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 595a2f1f0ac213446bd2aff40b003f77, type: 2}
   m_IsPrefabAsset: 0
@@ -6119,6 +6129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5e5b1b3b8f7ab4795a81166554bb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
+  Car: {fileID: 0}
+  playerPrefab: {fileID: 0}
 --- !u!33 &1973500710
 MeshFilter:
   m_ObjectHideFlags: 0
