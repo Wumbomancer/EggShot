@@ -1754,6 +1754,8 @@ MonoBehaviour:
   boostPower: 350000
   rotateSpeed: 4.6
   Exhast: {fileID: 198341154361352440}
+  Glow: {fileID: 198281382895198752}
+  Afterburn: {fileID: 198910170061387812}
   spinTime: 1
   LFWheel: {fileID: 146708648089148334}
   RFWheel: {fileID: 146294020131161410}
@@ -1811,6 +1813,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
+  - {fileID: 114900179238161176}
   - {fileID: 114900179238161176}
   viewIdField: 0
   InstantiationId: 1

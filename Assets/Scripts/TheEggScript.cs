@@ -13,6 +13,8 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
     public float boostPower;
     public float rotateSpeed;
     public ParticleSystem Exhast;
+    public ParticleSystem Glow;
+    public ParticleSystem Afterburn;
     public float spinTime;
     public WheelCollider LFWheel;
     public WheelCollider RFWheel;
@@ -104,7 +106,8 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
             AudioManager.instance.Play("Boost");
             Exhast.Play();
-
+            Glow.Play();
+            Afterburn.Play();
             
             
         }
@@ -114,6 +117,8 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
             AudioManager.instance.Stop("Boost");
             Exhast.Stop();
+            Glow.Play();
+            Afterburn.Play();
             
         }
     }
