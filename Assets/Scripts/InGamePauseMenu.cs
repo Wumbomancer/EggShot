@@ -7,7 +7,7 @@ using Photon.Pun;
 public class InGamePauseMenu : MonoBehaviour {
 
     public enum MenuState { Resume, Options, Exit};
-    public Canvas canvas;
+    public GameObject canvas;
     public GameObject Resume;
     public GameObject Options;
     public GameObject Exit;
@@ -44,7 +44,7 @@ public class InGamePauseMenu : MonoBehaviour {
         FindObjectOfType<LightBulbIllumination>().reset = true;
         while (!exitMenu)
             yield return null;
-        FindObjectOfType<Canvas>().gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false);
         ExitMenu();
     }
 

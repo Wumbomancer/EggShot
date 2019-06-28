@@ -60,7 +60,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
     // Update is called once per frame
     void FixedUpdate () {
-		if(isDrivable)
+		if(isDrivable && photonView.IsMine)
         {
             GetDriving();
             BoostCheck();
