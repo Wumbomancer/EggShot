@@ -2494,8 +2494,8 @@ MonoBehaviour:
   B: {fileID: 1353869868}
   LB: {fileID: 1306733671}
   RB: {fileID: 684685895}
-  LTrigger: {fileID: 93482401}
-  RTrigger: {fileID: 888679977}
+  TriggersL: {fileID: 93482401}
+  TriggersR: {fileID: 888679977}
   Car: {fileID: 0}
   Position1: {fileID: 764192065}
   Position2: {fileID: 869069782}
@@ -2512,8 +2512,6 @@ MonoBehaviour:
     type: 2}
   isActive: 0
   timeDelay: 0
-  inTransition: 0
-  CurrentState: 0
 --- !u!4 &1250842472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400006, guid: fe2e4e28496e6984998c6b8e9a16bf57,
