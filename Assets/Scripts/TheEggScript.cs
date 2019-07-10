@@ -49,7 +49,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         
         RRWheel.ConfigureVehicleSubsteps(5, 25, 25);
 
-        GetComponent<Rigidbody>().centerOfMass = new Vector3(-1f, -1.5f, 0);
+        GetComponent<Rigidbody>().centerOfMass = new Vector3(-1f, -1.6f, 0);
         StartCoroutine(Eggshot());
         if(photonView.IsMine)
         {
@@ -117,8 +117,8 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
             AudioManager.instance.Stop("Boost");
             Exhast.Stop();
-            Glow.Play();
-            Afterburn.Play();
+            Glow.Stop();
+            Afterburn.Stop();
             
         }
     }
@@ -131,8 +131,15 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         bool ebrake;
 
         ebrake = Input.GetButton("RB_1");
-        
-        motor = maxMotorTorque * Input.GetAxis(SavedInputs.gas);
+        if (touchingGround)
+        {
+            motor = maxMotorTorque * Input.GetAxis(SavedInputs.gas);
+
+        }
+        else
+        {
+            motor = 0;
+        }
         steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1")/(Mathf.Sqrt(GetComponent<Rigidbody>().velocity.magnitude + 100f)-9);
         braking = 0;
 

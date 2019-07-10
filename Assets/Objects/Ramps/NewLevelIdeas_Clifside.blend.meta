@@ -9,7 +9,7 @@ ModelImporter:
     400000: BezierCurve
     400002: //RootNode
     400004: Plane
-    2100000: unnamed
+    2100000: Material
     2300000: BezierCurve
     2300002: Plane
     3300000: BezierCurve

@@ -649,7 +649,7 @@ Transform:
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 4805116204301956}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 2.0530002, y: 0, z: 0}
 --- !u!4 &4406256567285216
 Transform:
@@ -716,10 +716,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 1.69, z: -1.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4879650764077094}
+  m_Children: []
   m_Father: {fileID: 4805116204301956}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4520089160311882
 Transform:
@@ -848,6 +847,7 @@ Transform:
   m_LocalPosition: {x: -0.612, y: -0.058, z: -3.091}
   m_LocalScale: {x: 0.62957096, y: 0.62957096, z: 0.6295711}
   m_Children:
+  - {fileID: 4879650764077094}
   - {fileID: 4517352722793556}
   - {fileID: 4404017628304622}
   m_Father: {fileID: 4353054333235892}
@@ -872,11 +872,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1677778080735662}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 1.6899987, z: -1.7300035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4517352722793556}
+  m_Father: {fileID: 4805116204301956}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4959482962028918
@@ -1748,10 +1748,10 @@ MonoBehaviour:
     motor: 1
     steering: 1
     braking: 1
-  maxMotorTorque: 40000
-  maxSteeringAngle: 40
+  maxMotorTorque: 80000
+  maxSteeringAngle: 50
   maxBrakeTorque: 1000
-  boostPower: 350000
+  boostPower: 450000
   rotateSpeed: 4.6
   Exhast: {fileID: 198341154361352440}
   Glow: {fileID: 198281382895198752}
@@ -1868,7 +1868,7 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.4
+    damper: 0.8
     targetPosition: 0.36
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
@@ -1881,8 +1881,8 @@ WheelCollider:
     m_AsymptoteValue: 1
     m_Stiffness: 5
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.6
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 0.4
     m_AsymptoteSlip: 0.6
     m_AsymptoteValue: 0.6
     m_Stiffness: 5
@@ -1897,7 +1897,7 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.4
+    damper: 0.8
     targetPosition: 0.36
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
@@ -1910,8 +1910,8 @@ WheelCollider:
     m_AsymptoteValue: 1
     m_Stiffness: 5
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.6
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 0.4
     m_AsymptoteSlip: 0.6
     m_AsymptoteValue: 0.6
     m_Stiffness: 5
@@ -1926,7 +1926,7 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.4
+    damper: 0.8
     targetPosition: 0.36
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
@@ -1939,8 +1939,8 @@ WheelCollider:
     m_AsymptoteValue: 1
     m_Stiffness: 5
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.6
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 0.4
     m_AsymptoteSlip: 0.6
     m_AsymptoteValue: 0.6
     m_Stiffness: 5
@@ -1955,7 +1955,7 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.4
+    damper: 0.8
     targetPosition: 0.36
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
@@ -1968,8 +1968,8 @@ WheelCollider:
     m_AsymptoteValue: 1
     m_Stiffness: 5
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.6
-    m_ExtremumValue: 0.6
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 0.4
     m_AsymptoteSlip: 0.6
     m_AsymptoteValue: 0.6
     m_Stiffness: 5
@@ -2043,7 +2043,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
   randomSeed: 0
@@ -11019,7 +11019,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
   randomSeed: 0
