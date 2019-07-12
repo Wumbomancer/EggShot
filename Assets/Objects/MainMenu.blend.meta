@@ -14,6 +14,8 @@ ModelImporter:
     100016: Play
     100018: S1
     100020: T1
+    100022: Eggshot
+    100024: Multi
     400000: E1
     400002: Exit
     400004: G1
@@ -25,6 +27,8 @@ ModelImporter:
     400016: Play
     400018: S1
     400020: T1
+    400022: Eggshot
+    400024: Multi
     2100000: unnamed
     2300000: E1
     2300002: Exit
@@ -36,6 +40,8 @@ ModelImporter:
     2300014: Play
     2300016: S1
     2300018: T1
+    2300020: Eggshot
+    2300022: Multi
     3300000: E1
     3300002: Exit
     3300004: G1
@@ -46,6 +52,8 @@ ModelImporter:
     3300014: Play
     3300016: S1
     3300018: T1
+    3300020: Eggshot
+    3300022: Multi
     4300000: Options
     4300002: Exit
     4300004: T1
@@ -56,6 +64,8 @@ ModelImporter:
     4300014: S1
     4300016: H
     4300018: Play
+    4300020: Multi
+    4300022: Eggshot
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
@@ -130,7 +140,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
