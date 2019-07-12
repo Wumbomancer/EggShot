@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ControlsMenu : MonoBehaviour {
 
-    public enum GameState { BOOST, GAS, BRAKE, ROTATECONTROL, RESTARTLEVEL, PREVIEW, BACK};
+    public enum GameState { BOOST, GAS, BRAKE, ROTATECONTROL, RESTARTLEVEL, PREVIEW, BACK };
 
     public GameObject Boost;
     public GameObject Gas;
@@ -19,8 +20,8 @@ public class ControlsMenu : MonoBehaviour {
     public GameObject B;
     public GameObject LB;
     public GameObject RB;
-    public GameObject LTrigger;
-    public GameObject RTrigger;
+    public GameObject TriggersL;
+    public GameObject TriggersR;
     public GameObject Car;
     public Transform Position1;
     public Transform Position2;
@@ -28,7 +29,7 @@ public class ControlsMenu : MonoBehaviour {
     public Transform Position4;
     public Transform Position5;
     public Transform ButtonWaitArea;
-
+    
     public Camera Camera1;
     public GameObject CamPos1;
     public GameObject CamPos2;
@@ -39,225 +40,110 @@ public class ControlsMenu : MonoBehaviour {
 
     public bool isActive;
     public float timeDelay;
-    public bool inTransition;
 
-    public GameState CurrentState = GameState.BOOST;
-
+    private Dictionary<string, GameObject> controlNameDict;
+    private LinkedListNode<GameState> CurrentState;
+    private LinkedList<GameState> list;
     private IEnumerator coroutine;
     private bool coroutineActive;
 
-
     // Use this for initialization
     void Start () {
+        coroutineActive = true;
         isActive = false;
         timeDelay = 0f;
-        
-        Boost.GetComponent<MeshRenderer>().material = HighlightMaterial;
-        
-        coroutineActive = true;
+
+        //Tracking state using a doubly linked list
+        PopulateGameObjectDLL();
+        //Creating dictionary to deal with GameObject aliases
+        PopulateControlDict();
+
         SetOnStart();
+
     }
 	
 	// Update is called once per frame
-	void Update () {
-		if(isActive  && timeDelay > .15f)
-        {
-            if(Input.GetButtonDown("B_1"))
-                Return();
-            switch (CurrentState)
-            {
-                case GameState.BOOST:
-                    if (Input.GetButtonDown("A_1"))
-                    { coroutine = ButtonInput(0); StartCoroutine(coroutine); isActive = false; }
-                    if (Input.GetAxis("L_YAxis_1") > 0)
-                    {
-                        CurrentState = GameState.GAS;
-                        
-                        Boost.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        timeDelay = 0f;
-                        Gas.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                    }
-                    return;
-                case GameState.GAS:
-                    if (Input.GetButtonDown("A_1"))
-                    { coroutine = ButtonInput(1); StartCoroutine(coroutine); isActive = false; }
-                    if (Input.GetAxis("L_YAxis_1") > 0)
-                    {
-                        CurrentState = GameState.BRAKE;
-                        Gas.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        Brake.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                    }
-
-                    if (Input.GetAxis("L_YAxis_1") < 0)
-                    {
-                        CurrentState = GameState.BOOST;
-                        Gas.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        Boost.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-                    return;
-                case GameState.BRAKE:
-                    if (Input.GetButtonDown("A_1"))
-                    { coroutine = ButtonInput(2); StartCoroutine(coroutine); isActive = false; }
-                    if (Input.GetAxis("L_YAxis_1") > 0)
-                    {
-                        CurrentState = GameState.ROTATECONTROL;
-                        Brake.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        RT.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-
-                    if (Input.GetAxis("L_YAxis_1") < 0)
-                    {
-                        CurrentState = GameState.GAS;
-                        Brake.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        Gas.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-                    return;
-                case GameState.ROTATECONTROL:
-                    if (Input.GetButtonDown("A_1"))
-                    { coroutine = ButtonInput(3); StartCoroutine(coroutine); isActive = false; }
-                    if (Input.GetAxis("L_YAxis_1") > 0)
-                    {
-                        CurrentState = GameState.RESTARTLEVEL;
-                        RT.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        RL.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-
-                    if (Input.GetAxis("L_YAxis_1") < 0)
-                    {
-                        CurrentState = GameState.BRAKE;
-                        RT.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        Brake.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-                    return;
-                case GameState.RESTARTLEVEL:
-
-                    if (Input.GetButtonDown("A_1"))
-                    { coroutine = ButtonInput(4); StartCoroutine(coroutine); isActive = false; }
-                    if (Input.GetAxis("L_YAxis_1") > 0)
-                    {
-                        CurrentState = GameState.PREVIEW;
-                        RL.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        timeDelay = 0f;
-                        Preview.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                    }
-
-                    if (Input.GetAxis("L_YAxis_1") < 0)
-                    {
-                        CurrentState = GameState.ROTATECONTROL;
-                        RL.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        timeDelay = 0f;
-                        RT.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                    }
-                    return;
-
-                case GameState.PREVIEW:
-
-                    if (Input.GetButtonDown("A_1"))
-                        TestTrack();
-                    if (Input.GetAxis("L_XAxis_1") > 0)
-                    {
-                        CurrentState = GameState.BACK;
-                        Preview.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        Back.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-
-                    if (Input.GetAxis("L_YAxis_1") < 0)
-                    {
-                        CurrentState = GameState.RESTARTLEVEL;
-                        Preview.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-
-                        timeDelay = 0f;
-                        RL.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-                    return;
-                case GameState.BACK:
-
-
-                    if (Input.GetButtonDown("A_1"))
-                        Return();
-                    if (Input.GetAxis("L_XAxis_1") < 0)
-                    {
-                        CurrentState = GameState.PREVIEW;
-                        Back.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
-                        
-                        timeDelay = 0f;
-                        Preview.GetComponent<MeshRenderer>().material = HighlightMaterial;
-                        
-                    }
-                    return;
-
-                default:
-                    return;
-            }
-            
-
-
-        }
-        
-        
-            
-        
+    void Update () {
+        RunState();
         timeDelay += Time.deltaTime;
-	}
+    }
 
-    public void Return()
+    private void RunState() {
+        if (isActive && timeDelay > .15f)
+        {
+            if (Input.GetButtonDown("B_1"))
+                Return();
+            switch (CurrentState.Value)
+            {
+                case GameState.BOOST: GameStateCoRout(0, null, Boost, Gas);return;
+                case GameState.GAS: GameStateCoRout(1, Boost, Gas, Brake);return;
+                case GameState.BRAKE: GameStateCoRout(2, Gas, Brake, RT);return;
+                case GameState.ROTATECONTROL: GameStateCoRout(3, Brake, RT, RL);return;
+                case GameState.RESTARTLEVEL: GameStateCoRout(4, RT, RL, Preview);return;
+                case GameState.PREVIEW: GameStateCoRout(-1, RL, Preview, Back);return;
+                case GameState.BACK: GameStateCoRout(-2, Preview, Back, null);return;
+
+                default:return;
+            }
+           
+        }
+    }
+
+    private void GameStateCoRout(int buttonInput, GameObject prevField, GameObject currField, GameObject nextField )
     {
+        if (Input.GetButtonDown("A_1") && buttonInput > -1)
+            { coroutine = ButtonInput(buttonInput); StartCoroutine(coroutine); isActive = false; }
+        else if (Input.GetButtonDown("A_1") && buttonInput == -1)
+            TestTrack();
+        else if (Input.GetButtonDown("A_1") && buttonInput == -2)
+            Return();
+        
+        if (Input.GetAxis("L_YAxis_1") > 0 && nextField != null)
+        {
+            CurrentState = CurrentState.Next ;
+            //print(CurrentState.Value);
+            currField.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
+
+            timeDelay = 0f;
+            nextField.GetComponent<MeshRenderer>().material = HighlightMaterial;
+        }
+
+        if (Input.GetAxis("L_YAxis_1") < 0 && prevField != null)
+        {
+            CurrentState = CurrentState.Previous;
+            //print(CurrentState.Value);
+            currField.GetComponent<MeshRenderer>().material = NonHighlightMaterial;
+
+            timeDelay = 0f;
+            prevField.GetComponent<MeshRenderer>().material = HighlightMaterial;
+        }
+    }
+
+    private void Return()
+    {
+        isActive = false;
         FindObjectOfType<MainCameraScript>().ClearFlags();
         FindObjectOfType<MainCameraScript>().movetoOptions = true;
         FindObjectOfType<MainCameraScript>().timeDelay = 0f;
         FindObjectOfType<OptionsMenu>().timeDelay = -.1f;
-
-        isActive = false;
         FindObjectOfType<OptionsMenu>().isActive = true;
-        
-
-    }
-
-    public void TestTrack()
-    {
-        FindObjectOfType<MainCameraScript>().movetoPreview = true;
-        FindObjectOfType<MainCameraScript>().timeDelay = 0f;
-        isActive = false;
-        Car.SetActive(true);
     }
 
     IEnumerator ButtonInput(int input)
     {
         if (coroutineActive)
         {
-            Debug.Log("Starting Coroutine");
+           // Debug.Log("Starting Coroutine");
             yield return new WaitForSeconds(.1f);
-            Debug.Log("Finished Waiting");
+           // Debug.Log("Finished Waiting");
+           
             while (!Input.GetButtonDown("A_1") && !Input.GetButtonDown("B_1") && !Input.GetButtonDown("Y_1") && !Input.GetButtonDown("X_1")
                 && !Input.GetButtonDown("LB_1") && !Input.GetButtonDown("RB_1") && !(Input.GetAxis("TriggersL_1") > 0) && !(Input.GetAxis("TriggersR_1") < 0))
                 yield return null;
 
-
-            AlterControls(input);
+            ControlToAlter(input);
             
-
-            Debug.Log("Finish Coroutine");
+           // Debug.Log("Finish Coroutine");
             InputHandler.SaveInputs();
             isActive = true;
         }
@@ -265,250 +151,126 @@ public class ControlsMenu : MonoBehaviour {
             coroutineActive = true;
     }
 
-    public void AlterControls(int input)
+    private void ControlToAlter(int input)
     {
-
-        if (Input.GetButtonDown("A_1"))
+        foreach (string i in controlNameDict.Keys)
         {
-            CheckForOverlap(input);
-            switch (input)
+            string buttonName = i + "_1";
+            if (Input.GetButtonDown(buttonName))
             {
-                case 0: SavedInputs.boost = "A_1"; A.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "A_1"; A.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "A_1"; A.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "A_1"; A.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "A_1"; A.transform.position = Position5.position; break;
-                default: break;
+                AlterControl(buttonName, controlNameDict[i], input);
+                break;
             }
-
-
-        }
-        else if (Input.GetButtonDown("B_1"))
-        {
-            CheckForOverlap(input);
-            switch (input)
+            else if (buttonName == "TriggersL_1")
             {
-                case 0: SavedInputs.boost = "B_1"; B.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "B_1"; B.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "B_1"; B.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "B_1"; B.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "B_1"; B.transform.position = Position5.position; break;
-                default: break;
+                if (Input.GetAxis("TriggersL_1") > 0)
+                {
+                    AlterControl(buttonName, controlNameDict[i], input);
+                }
             }
-        }
-        else if (Input.GetButtonDown("Y_1"))
-        {
-            CheckForOverlap(input);
-            switch (input)
-            {
-                case 0: SavedInputs.boost = "Y_1"; Y.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "Y_1"; Y.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "Y_1"; Y.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "Y_1"; Y.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "Y_1"; Y.transform.position = Position5.position; break;
-                default: break;
+            else if(buttonName == "TriggersR_1")
+            { 
+                if(Input.GetAxis("TriggersR_1") < 0)
+                {
+                    AlterControl(buttonName, controlNameDict[i], input);
+                }
             }
-        }
-        else if (Input.GetButtonDown("X_1"))
-        {
-            CheckForOverlap(input);
-            switch (input)
-            {
-                case 0: SavedInputs.boost = "X_1"; X.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "X_1"; X.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "X_1"; X.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "X_1"; X.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "X_1"; X.transform.position = Position5.position; break;
-                default: break;
-            }
-        }
-        else if (Input.GetButtonDown("RB_1"))
-        {
-            CheckForOverlap(input);
-            switch (input)
-            {
-                case 0: SavedInputs.boost = "RB_1"; RB.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "RB_1"; RB.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "RB_1"; RB.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "RB_1"; RB.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "RB_1"; RB.transform.position = Position5.position; break;
-                default: break;
-            }
-        }
-        else if (Input.GetButtonDown("LB_1"))
-        {
-            CheckForOverlap(input);
-            switch (input)
-            {
-                case 0: SavedInputs.boost = "LB_1"; LB.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "LB_1"; LB.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "LB_1"; LB.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "LB_1"; LB.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "LB_1"; LB.transform.position = Position5.position; break;
-                default: break;
-            }
-        }
-        else if (Input.GetAxis("TriggersR_1") < 0)
-        {
-            CheckForOverlap(input);
-            switch (input)
-            {
-                case 0: SavedInputs.boost = "TriggersR_1"; RTrigger.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "TriggersR_1"; RTrigger.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "TriggersR_1"; RTrigger.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "TriggersR_1"; RTrigger.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "TriggersR_1"; RTrigger.transform.position = Position5.position; break;
-                default: break;
-            }
-        }
-        else if (Input.GetAxis("TriggersL_1") > 0)
-        {
-            CheckForOverlap(input);
-            switch (input)
-            {
-                case 0: SavedInputs.boost = "TriggersL_1"; LTrigger.transform.position = Position1.position; break;
-                case 1: SavedInputs.gas = "TriggersL_1"; LTrigger.transform.position = Position2.position; break;
-                case 2: SavedInputs.brake = "TriggersL_1"; LTrigger.transform.position = Position3.position; break;
-                case 3: SavedInputs.rotateControl = "TriggersL_1"; LTrigger.transform.position = Position4.position; break;
-                case 4: SavedInputs.restartLevel = "TriggersL_1"; LTrigger.transform.position = Position5.position; break;
-                default: break;
-            }
-        }
+        } 
     }
 
-    public void SetOnStart()
+    private void AlterControl(string ctrl, GameObject buttonObject, int input)
     {
-        InputHandler.LoadInputs();
-        if(SavedInputs.boost == "A_1")
-            A.transform.position = Position1.position;
-        else if(SavedInputs.boost == "B_1")
-            B.transform.position = Position1.position;
-        else if (SavedInputs.boost == "X_1")
-            X.transform.position = Position1.position;
-        else if (SavedInputs.boost == "Y_1")
-            Y.transform.position = Position1.position;
-        else if (SavedInputs.boost == "LB_1")
-            LB.transform.position = Position1.position;
-        else if (SavedInputs.boost == "RB_1")
-            RB.transform.position = Position1.position;
-        else if (SavedInputs.boost == "TriggersR_1")
-            RTrigger.transform.position = Position1.position;
-        else if (SavedInputs.boost == "TriggersL_1")
-            LTrigger.transform.position = Position1.position;
 
-        if (SavedInputs.gas == "A_1")
-            A.transform.position = Position2.position;
-        else if (SavedInputs.gas == "B_1")
-            B.transform.position = Position2.position;
-        else if (SavedInputs.gas == "X_1")
-            X.transform.position = Position2.position;
-        else if (SavedInputs.gas == "Y_1")
-            Y.transform.position = Position2.position;
-        else if (SavedInputs.gas == "LB_1")
-            LB.transform.position = Position2.position;
-        else if (SavedInputs.gas == "RB_1")
-            RB.transform.position = Position2.position;
-        else if (SavedInputs.gas == "TriggersR_1")
-            RTrigger.transform.position = Position2.position;
-        else if (SavedInputs.gas == "TriggersL_1")
-            LTrigger.transform.position = Position2.position;
-
-        if (SavedInputs.brake == "A_1")
-            A.transform.position = Position3.position;
-        else if (SavedInputs.brake == "B_1")
-            B.transform.position = Position3.position;
-        else if (SavedInputs.brake == "X_1")
-            X.transform.position = Position3.position;
-        else if (SavedInputs.brake == "Y_1")
-            Y.transform.position = Position3.position;
-        else if (SavedInputs.brake == "LB_1")
-            LB.transform.position = Position3.position;
-        else if (SavedInputs.brake == "RB_1")
-            RB.transform.position = Position3.position;
-        else if (SavedInputs.brake == "TriggersR_1")
-            RTrigger.transform.position = Position3.position;
-        else if (SavedInputs.brake == "TriggersL_1")
-            LTrigger.transform.position = Position3.position;
-
-        if (SavedInputs.rotateControl == "A_1")
-            A.transform.position = Position4.position;
-        else if (SavedInputs.rotateControl == "B_1")
-            B.transform.position = Position4.position;
-        else if (SavedInputs.rotateControl == "X_1")
-            X.transform.position = Position4.position;
-        else if (SavedInputs.rotateControl == "Y_1")
-            Y.transform.position = Position4.position;
-        else if (SavedInputs.rotateControl == "LB_1")
-            LB.transform.position = Position4.position;
-        else if (SavedInputs.rotateControl == "RB_1")
-            RB.transform.position = Position4.position;
-        else if (SavedInputs.rotateControl == "TriggersR_1")
-            RTrigger.transform.position = Position4.position;
-        else if (SavedInputs.rotateControl == "TriggersL_1")
-            LTrigger.transform.position = Position4.position;
-
-        if (SavedInputs.restartLevel == "A_1")
-            A.transform.position = Position5.position;
-        else if (SavedInputs.restartLevel == "B_1")
-            B.transform.position = Position5.position;
-        else if (SavedInputs.restartLevel == "X_1")
-            X.transform.position = Position5.position;
-        else if (SavedInputs.restartLevel == "Y_1")
-            Y.transform.position = Position5.position;
-        else if (SavedInputs.restartLevel == "LB_1")
-            LB.transform.position = Position5.position;
-        else if (SavedInputs.restartLevel == "RB_1")
-            RB.transform.position = Position5.position;
-        else if (SavedInputs.restartLevel == "TriggersR_1")
-            RTrigger.transform.position = Position5.position;
-        else if (SavedInputs.restartLevel == "TriggersL_1")
-            LTrigger.transform.position = Position5.position;
-    }
-
-    public void CheckForOverlap(int input)
-    {
         switch (input)
         {
-            case 0: SharingSpace(Position1).transform.position = ButtonWaitArea.position;
-                return;
-            case 1: SharingSpace(Position2).transform.position = ButtonWaitArea.position;
-                return;
-            case 2: SharingSpace(Position3).transform.position = ButtonWaitArea.position;
-                return;
-            case 3: SharingSpace(Position4).transform.position = ButtonWaitArea.position;
-                return;
-            case 4: SharingSpace(Position5).transform.position = ButtonWaitArea.position;
-                return;
-            default: return;
-
-
-
-
+            case 0: CheckForOverlap(ctrl, Position1, SavedInputs.boost, buttonObject); break;
+            case 1: CheckForOverlap(ctrl, Position2, SavedInputs.gas, buttonObject); break;
+            case 2: CheckForOverlap(ctrl, Position3, SavedInputs.brake, buttonObject); break;
+            case 3: CheckForOverlap(ctrl, Position4, SavedInputs.rotateControl, buttonObject); break;
+            case 4: CheckForOverlap(ctrl, Position5, SavedInputs.restartLevel, buttonObject); break;
+            default: break;
         }
     }
 
-    public GameObject SharingSpace(Transform position)
+    private void CheckForOverlap(string ctrl, Transform position, string savedInput, GameObject buttonObject)
     {
-        Debug.Log("SharingSpace");
-        if (position.position == A.transform.position)
-            return A;
-        if( position.position == B.transform.position)
-            return B;
-        if (position.position == X.transform.position)
-            return X;
-        if (position.position == Y.transform.position)
-            return Y;
-        if (position.position == LTrigger.transform.position)
-            return LTrigger;
-        if (position.position == RTrigger.transform.position)
-            return RTrigger;
-        if (position.position == LB.transform.position)
-            return LB;
-        if (position.position == RB.transform.position)
-            return RB;
+        SharingSpace(position).transform.position = ButtonWaitArea.position;
+        savedInput = ctrl; buttonObject.transform.position = position.position;
+    }
+
+    private GameObject SharingSpace(Transform position)
+    {
+        print("SharingSpace");
+        foreach (GameObject buttonGraphic in controlNameDict.Values)
+        {
+            print(buttonGraphic.ToString());
+            print(position.position);
+            if (Vector3.Distance(position.position, buttonGraphic.transform.position) < 0.5)
+            {
+                print("Shared space control: "+buttonGraphic.ToString());
+                return buttonGraphic;
+            }
+        }
+      
         return ButtonWaitArea.gameObject;
     }
-            
-        
+
+    private void TestTrack()
+    {
+        FindObjectOfType<MainCameraScript>().movetoPreview = true;
+        FindObjectOfType<MainCameraScript>().timeDelay = 0f;
+        isActive = false;
+        Car.SetActive(true);
+    }
+
+    private void SetOnStart()
+    {
+        InputHandler.LoadInputs();
+        CheckInputControl(SavedInputs.boost, Position1);
+        CheckInputControl(SavedInputs.gas, Position2);
+        CheckInputControl(SavedInputs.brake, Position3);
+        CheckInputControl(SavedInputs.rotateControl, Position4);
+        CheckInputControl(SavedInputs.restartLevel, Position5);
+    }
+
+    private void CheckInputControl(string input, Transform panelPosition)
+    {
+        string button = input.Remove(input.Length - 2);
+        //print(button);
+        GameObject buttonGraphic = controlNameDict[button.Trim()];
+        //print(buttonGraphic.ToString());
+        buttonGraphic.transform.position = panelPosition.position;
+    }
     
+    private void PopulateControlDict()
+    {
+        controlNameDict = new Dictionary<string, GameObject>
+        {
+            { "A", A },
+            { "B", B },
+            { "X", X },
+            { "Y", Y },
+            { "LB", LB },
+            { "RB", RB },
+            { "TriggersL", TriggersL },
+            { "TriggersR", TriggersR }
+        };
+    }
+
+    private void PopulateGameObjectDLL()
+    {
+        list = new LinkedList<GameState>();
+        foreach (GameState state in (GameState[])System.Enum.GetValues(typeof(GameState)))
+        {
+
+            LinkedListNode<GameState> node = new LinkedListNode<GameState>(state);
+            list.AddLast(new LinkedListNode<GameState>(state));
+
+        }
+        CurrentState = list.First;
+        Boost.GetComponent<MeshRenderer>().material = HighlightMaterial;
+    }
+    
+
+
 }
