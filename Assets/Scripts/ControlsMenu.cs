@@ -217,10 +217,13 @@ public class ControlsMenu : MonoBehaviour {
 
     private void TestTrack()
     {
+        Debug.Log("Moving from controls to preview");
         FindObjectOfType<MainCameraScript>().movetoPreview = true;
         FindObjectOfType<MainCameraScript>().timeDelay = 0f;
+        FindObjectOfType<MainMenuCarTestTrack>().CarSpawn();
+         
+        
         isActive = false;
-        Car.SetActive(true);
     }
 
     private void SetOnStart()

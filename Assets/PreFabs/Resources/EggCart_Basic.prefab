@@ -623,7 +623,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1053378027214626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -205.31781, y: -260.87564, z: 377.51642}
+  m_LocalPosition: {x: -205.31781, y: -259.21, z: 377.51642}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4353054333235892}
@@ -1749,7 +1749,7 @@ MonoBehaviour:
     steering: 1
     braking: 1
   maxMotorTorque: 80000
-  maxSteeringAngle: 50
+  maxSteeringAngle: 20
   maxBrakeTorque: 1000
   boostPower: 450000
   rotateSpeed: 4.6

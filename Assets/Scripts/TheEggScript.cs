@@ -51,7 +51,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
         GetComponent<Rigidbody>().centerOfMass = new Vector3(-1f, -1.6f, 0);
         StartCoroutine(Eggshot());
-        if(photonView.IsMine)
+        if(photonView.IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
         {
             FindObjectOfType<CameraControl>().SetNewCar(this.gameObject);
         }
@@ -60,7 +60,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
     // Update is called once per frame
     void FixedUpdate () {
-		if(isDrivable && photonView.IsMine)
+		if((isDrivable && photonView.IsMine) || !FindObjectOfType<SceneInfo>().multiplayer)
         {
             GetDriving();
             BoostCheck();

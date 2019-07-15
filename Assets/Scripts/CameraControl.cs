@@ -28,20 +28,22 @@ public class CameraControl : MonoBehaviourPun {
 
     private void Awake()
     {
+        
+    }
+
+    void Start () {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject player in players)
         {
-
-            if (player.GetPhotonView().IsMine)
+            
+            if (player.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
             {
+                Debug.Log("CameraGrab");
                 SetNewCar(player);
             }
-        }
-    }
 
-    void Start () {
-        
+        }
         CameraState = CameraPositions.Default;
         DefaultSetup();
         prevCarPos = Car.transform.position;
@@ -84,7 +86,7 @@ public class CameraControl : MonoBehaviourPun {
 
     public void SetNewCar ( GameObject NewCar )
     {
-        if (NewCar.GetPhotonView().IsMine)
+        if (NewCar.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
         {
             Car = NewCar.transform;
             Debug.Log("Thats Mine");

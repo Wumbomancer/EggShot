@@ -85,8 +85,8 @@ public class MainCameraScript : MonoBehaviour {
 
     public void MoveToPreview()
     {
-        Camera.transform.position = Vector3.Lerp(Camera.transform.position, CarCamPos.transform.position, .1f);
-        Camera.transform.LookAt(Car);
+        //Camera.transform.position = Vector3.Lerp(Camera.transform.position, CarCamPos.transform.position, .1f);
+        //Camera.transform.LookAt(Car);
     }
 
     public void ClearFlags()

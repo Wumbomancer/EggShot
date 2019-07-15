@@ -188,10 +188,12 @@ MonoBehaviour:
     type: 2}
   CameraDesiredParentPosition: {fileID: 1688000898199176, guid: c1e3f2ab116534d4abe6da32b12ba2ba,
     type: 2}
-  DetachedEgg: {fileID: 0}
+  DetachedEgg: {fileID: 1096219010166498, guid: c1e3f2ab116534d4abe6da32b12ba2ba,
+    type: 2}
   loopRotation: 0
   prevLoopRotation: 0
-  DetachedCameraPosition: {fileID: 0}
+  DetachedCameraPosition: {fileID: 4353054333235892, guid: c1e3f2ab116534d4abe6da32b12ba2ba,
+    type: 2}
   maxCameraHeight: 0
   maxCameraTilt: 0
   CameraState: 1
