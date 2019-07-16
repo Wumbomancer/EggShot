@@ -1749,14 +1749,14 @@ MonoBehaviour:
     steering: 1
     braking: 1
   maxMotorTorque: 80000
-  maxSteeringAngle: 20
+  maxSteeringAngle: 40
   maxBrakeTorque: 1000
   boostPower: 450000
   rotateSpeed: 4.6
   Exhast: {fileID: 198341154361352440}
   Glow: {fileID: 198281382895198752}
   Afterburn: {fileID: 198910170061387812}
-  spinTime: 1
+  spinTime: 1.6
   LFWheel: {fileID: 146708648089148334}
   RFWheel: {fileID: 146294020131161410}
   LRWheel: {fileID: 146044317365692232}

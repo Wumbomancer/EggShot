@@ -140,7 +140,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         {
             motor = 0;
         }
-        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1")/(Mathf.Sqrt(GetComponent<Rigidbody>().velocity.magnitude + 100f)-9);
+        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.08f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,1.1f));
         braking = 0;
 
         if (ebrake)
