@@ -3895,7 +3895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3845633669da8543886aaa91ac080ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Car: {fileID: 1053378027214626, guid: c1e3f2ab116534d4abe6da32b12ba2ba, type: 2}
 --- !u!136 &1563751465
 CapsuleCollider:
   m_ObjectHideFlags: 0

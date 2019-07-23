@@ -12,6 +12,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
     public float maxBrakeTorque;
     public float boostPower;
     public float rotateSpeed;
+    public Transform centerOfMass;
     public ParticleSystem Exhast;
     public ParticleSystem Glow;
     public ParticleSystem Afterburn;
@@ -27,6 +28,9 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
     public bool touchingGround;
     public bool[] prevFrames = new bool[3];
     public bool startedBraking;
+
+    public float prevRotation;
+    public float currentRotation;
 
 
 
@@ -47,9 +51,9 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         isDrivable = true;
         InputHandler.LoadInputs();
         
-        RRWheel.ConfigureVehicleSubsteps(5, 25, 25);
+        RRWheel.ConfigureVehicleSubsteps(20, 25, 50);
 
-        GetComponent<Rigidbody>().centerOfMass = new Vector3(-1f, -1.6f, 0);
+        GetComponent<Rigidbody>().centerOfMass = centerOfMass.localPosition;
         StartCoroutine(Eggshot());
         if(photonView.IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
         {
@@ -130,11 +134,14 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         float braking;
         bool ebrake;
 
-        ebrake = Input.GetButton("RB_1");
-        if (touchingGround)
+
+
+        ebrake = Input.GetButton("LB_1");
+       
+        if (touchingGround && ebrake == false)
         {
             motor = maxMotorTorque * Input.GetAxis(SavedInputs.gas);
-
+            GetComponent<Rigidbody>().AddRelativeForce(0, 250000, 0);
         }
         else
         {
@@ -145,52 +152,27 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
         if (ebrake)
         {
-            if(startedBraking == false)
+            if(startedBraking)
             {
-                /*WheelFrictionCurve newWheel = new WheelFrictionCurve
-                {
-                    asymptoteSlip = .2f,
-                    asymptoteValue = .2f,
-                    extremumSlip = .2f,
-                    extremumValue = .2f
-                };
-                LFWheel.sidewaysFriction = newWheel;
-                LRWheel.sidewaysFriction = newWheel;
-                RFWheel.sidewaysFriction = newWheel;
-                RRWheel.sidewaysFriction = newWheel;*/
-                startedBraking = true;
-                RaycastHit hit;
-                Physics.Raycast(this.transform.position, Vector3.down, out hit);
-                hit.collider.material.dynamicFriction = .1f;
-                Debug.Log("Casting Ray"); // You should draw this bitch
+                GetComponent<Rigidbody>().AddRelativeForce(0, 150000, 0, ForceMode.Impulse);
             }
+            if(WheelsGroundedCheck())
+            {
+                /*prevRotation = currentRotation;
+                currentRotation = this.transform.rotation.y;
+                Vector3 tempVec = new Vector3(GetComponent<Rigidbody>().rotation.x, (currentRotation - prevRotation) / 2f, GetComponent<Rigidbody>().rotation.z);
+                GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(tempVec));*/
+                
+            }
+            startedBraking = false;
             
-            
-            motor = 0;
-            braking = 1000;
-            GetComponent<Rigidbody>().freezeRotation = true;
             
         }
         else
         {
-            if(startedBraking)
-            {
-             /*   WheelFrictionCurve newWheel = new WheelFrictionCurve
-                {
-                    asymptoteSlip = .6f,
-                    asymptoteValue = .6f,
-                    extremumSlip = .6f,
-                    extremumValue = .6f
-                };
-                LFWheel.sidewaysFriction = newWheel;
-                LRWheel.sidewaysFriction = newWheel;
-                RFWheel.sidewaysFriction = newWheel;
-                RRWheel.sidewaysFriction = newWheel;
-                startedBraking = false;*/
-                
-            }
+            startedBraking = true;
             braking = 0;
-            GetComponent<Rigidbody>().freezeRotation = false;
+            
             
 
         }
@@ -262,6 +244,15 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         }
 
 
+    }
+
+    public bool WheelsGroundedCheck()
+    {
+        if(!RRWheel.isGrounded && !RFWheel.isGrounded && !LRWheel.isGrounded && !LFWheel.isGrounded)
+        {
+            return false;
+        }
+        return true;
     }
 
     public void OnCollisionEnter()

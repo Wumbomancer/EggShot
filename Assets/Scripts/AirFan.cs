@@ -20,7 +20,7 @@ public class AirFan : MonoBehaviour {
         if(isActive)
         {
             collisionObject.GetComponentInParent<Rigidbody>().AddForce(0,200,0,ForceMode.Acceleration);
-            Debug.Log(collisionObject.GetComponentInParent<Rigidbody>().gameObject.name);
+            
         }
 	}
 
