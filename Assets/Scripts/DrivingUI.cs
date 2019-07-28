@@ -14,7 +14,7 @@ public class DrivingUI : MonoBehaviourPunCallbacks {
 
 
 	void Start () {
-       /* Debug.Log("Filling Numbers Lookup Table");
+        Debug.Log("Filling Numbers Lookup Table");
         NumbersLookup[0] = Resources.Load("Numbers/Number0") as GameObject;
         NumbersLookup[1] = Resources.Load("Numbers/Number1") as GameObject;
         NumbersLookup[2] = Resources.Load("Numbers/Number2") as GameObject;
@@ -25,26 +25,24 @@ public class DrivingUI : MonoBehaviourPunCallbacks {
         NumbersLookup[7] = Resources.Load("Numbers/Number7") as GameObject;
         NumbersLookup[8] = Resources.Load("Numbers/Number8") as GameObject;
         NumbersLookup[9] = Resources.Load("Numbers/Number9") as GameObject;
-        Debug.Log("Filled Numbers Lookup Table");*/
+        Debug.Log("Filled Numbers Lookup Table");
 
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
 
+            if (player.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
+            {
+                Debug.Log("CameraGrab");
+                Car = player;
+            }
+
+        }
     }
 
     // Update is called once per frame
     void Update () {
-		if(Car == null)
-        {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-            foreach (GameObject player in players)
-            {
-
-                if (player.GetPhotonView().IsMine)
-                {
-                    Car = player;
-                }
-            }
-        }
+		
 
         float speed = Car.GetComponent<Rigidbody>().velocity.magnitude/3f;
         Debug.Log(speed);
@@ -69,4 +67,5 @@ public class DrivingUI : MonoBehaviourPunCallbacks {
         }
 
 	}
+    
 }

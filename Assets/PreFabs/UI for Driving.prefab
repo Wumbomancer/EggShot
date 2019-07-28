@@ -68,8 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8732200d48bdee4fa3608c0ac04b4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstNumber: {fileID: 0}
-  SecondNumber: {fileID: 0}
+  FirstNumber: {fileID: 1028668302375316}
+  SecondNumber: {fileID: 1091180516595544}
   Car: {fileID: 0}
   PositionFirstNumber: {fileID: 224013986755037372}
   PositionSecondNumber: {fileID: 224018831888174136}

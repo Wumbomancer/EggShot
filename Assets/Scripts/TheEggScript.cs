@@ -138,7 +138,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
         ebrake = Input.GetButton("LB_1");
        
-        if (touchingGround && ebrake == false)
+        if (WheelsGroundedCheck() && ebrake == false)
         {
             motor = maxMotorTorque * Input.GetAxis(SavedInputs.gas);
             GetComponent<Rigidbody>().AddRelativeForce(0, 250000, 0);
@@ -147,7 +147,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         {
             motor = 0;
         }
-        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.08f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,1.1f));
+        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.15f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,.8f));
         braking = 0;
 
         if (ebrake)

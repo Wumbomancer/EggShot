@@ -784,6 +784,7 @@ MonoBehaviour:
   spawnCar: 1
   spawnCamera: 0
   spawnDrivingUi: 0
+  multiplayer: 1
 --- !u!4 &612115322
 Transform:
   m_ObjectHideFlags: 0
@@ -982,15 +983,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bec30ddbb286c6f418c5e3f734f96976, type: 3}
       propertyPath: m_LocalScale.x
-      value: 75
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bec30ddbb286c6f418c5e3f734f96976, type: 3}
       propertyPath: m_LocalScale.y
-      value: 75
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bec30ddbb286c6f418c5e3f734f96976, type: 3}
       propertyPath: m_LocalScale.z
-      value: 75
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: bec30ddbb286c6f418c5e3f734f96976, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
