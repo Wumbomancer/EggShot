@@ -21,6 +21,8 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
     public WheelCollider RFWheel;
     public WheelCollider LRWheel;
     public WheelCollider RRWheel;
+    public WheelCollider SpareTire;
+    public WheelCollider NormalTire;
     public static GameObject LocalPlayerInstance;
 
     //All bools and flags
@@ -137,8 +139,13 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
 
 
         ebrake = Input.GetButton("LB_1");
-       
-        if (WheelsGroundedCheck() && ebrake == false)
+        if (Input.GetAxis("TriggersL_1") > 0)
+        {
+            braking = 100000f;
+        }
+        else braking = 0;
+
+        if (WheelsGroundedCheck())
         {
             motor = maxMotorTorque * Input.GetAxis(SavedInputs.gas);
             GetComponent<Rigidbody>().AddRelativeForce(0, 250000, 0);
@@ -148,20 +155,24 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
             motor = 0;
         }
         steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.15f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,.8f));
-        braking = 0;
+        
 
         if (ebrake)
         {
             if(startedBraking)
             {
                 GetComponent<Rigidbody>().AddRelativeForce(0, 150000, 0, ForceMode.Impulse);
+
+
+                LFWheel.sidewaysFriction = SpareTire.sidewaysFriction;
+                RFWheel.sidewaysFriction = SpareTire.sidewaysFriction;
+                LRWheel.sidewaysFriction = SpareTire.sidewaysFriction;
+                RRWheel.sidewaysFriction = SpareTire.sidewaysFriction;
+                maxSteeringAngle += 50f;
             }
-            if(WheelsGroundedCheck())
+            if (WheelsGroundedCheck())
             {
-                /*prevRotation = currentRotation;
-                currentRotation = this.transform.rotation.y;
-                Vector3 tempVec = new Vector3(GetComponent<Rigidbody>().rotation.x, (currentRotation - prevRotation) / 2f, GetComponent<Rigidbody>().rotation.z);
-                GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(tempVec));*/
+                
                 
             }
             startedBraking = false;
@@ -171,9 +182,12 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         else
         {
             startedBraking = true;
-            braking = 0;
-            
-            
+            LFWheel.sidewaysFriction = NormalTire.sidewaysFriction;
+            RFWheel.sidewaysFriction = NormalTire.sidewaysFriction;
+            LRWheel.sidewaysFriction = NormalTire.sidewaysFriction;
+            RRWheel.sidewaysFriction = NormalTire.sidewaysFriction;
+            maxSteeringAngle = 60;
+
 
         }
 
