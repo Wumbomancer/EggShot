@@ -1774,7 +1774,7 @@ MonoBehaviour:
     braking: 1
   - leftWheel: {fileID: 146708648089148334}
     rightWheel: {fileID: 146294020131161410}
-    motor: 1
+    motor: 0
     steering: 1
     braking: 1
   maxMotorTorque: 80000
@@ -1904,8 +1904,8 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.8
-    targetPosition: 0.36
+    damper: 10
+    targetPosition: 1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 1000
@@ -1933,8 +1933,8 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.8
-    targetPosition: 0.36
+    damper: 10
+    targetPosition: 1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 1000
@@ -1962,8 +1962,8 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.8
-    targetPosition: 0.36
+    damper: 10
+    targetPosition: 1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 1000
@@ -1991,8 +1991,8 @@ WheelCollider:
   m_Radius: 0.95
   m_SuspensionSpring:
     spring: 5000
-    damper: 0.8
-    targetPosition: 0.36
+    damper: 10
+    targetPosition: 1
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 1000

@@ -44,7 +44,7 @@ public class CameraControl : MonoBehaviourPun {
             }
 
         }
-        CameraState = CameraPositions.Default;
+        CameraState = CameraPositions.ControlBehavior;
         DefaultSetup();
         prevCarPos = Car.transform.position;
         currentCarPos = Car.transform.position;
