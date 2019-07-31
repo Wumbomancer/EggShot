@@ -29,7 +29,6 @@ public class RespawnControl : MonoBehaviourPunCallbacks {
             }
         }
     }
-
     private void Update()
     {
         if (Input.GetButtonDown(SavedInputs.restartLevel))
@@ -41,7 +40,7 @@ public class RespawnControl : MonoBehaviourPunCallbacks {
         Destroy(Car);
         Debug.Log("Instatiating Player");
         Car =  PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, Quaternion.identity, 0);
-        FindObjectOfType<CameraControl>().SetNewCar(Car);
+        FindObjectOfType<CameraControl>().SetCameraTarget(Car);
         FindObjectOfType<CameraControl>().transform.position = spawnPoint.position;
 
     }

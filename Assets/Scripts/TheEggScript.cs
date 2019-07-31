@@ -42,7 +42,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         if (photonView.IsMine)
         {
             TheEggScript.LocalPlayerInstance = this.gameObject;
-            FindObjectOfType<CameraControl>().SetNewCar(this.gameObject);
+            FindObjectOfType<CameraControl>().SetCameraTarget(this.gameObject);
         }
 
         DontDestroyOnLoad(this.gameObject);
@@ -59,7 +59,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         StartCoroutine(Eggshot());
         if(photonView.IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
         {
-            FindObjectOfType<CameraControl>().SetNewCar(this.gameObject);
+            FindObjectOfType<CameraControl>().SetCameraTarget(this.gameObject);
         }
 
     }

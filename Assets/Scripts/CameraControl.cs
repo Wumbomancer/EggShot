@@ -7,20 +7,25 @@ public class CameraControl : MonoBehaviourPun {
 
     public enum CameraPositions { LoopBehavior, ControlBehavior, Default, DetachedEgg };
 
-    public Transform Car;
-    public Vector3 offset;
+    public GameObject CameraTargetObject;
+    
     public float smoothness;
-    public Vector3 rotationOffset;
+    
     public GameObject CameraDesiredPosition;
-    public GameObject CameraDesiredParentPosition;
+    public GameObject DefaultPosition;
     public GameObject DetachedEgg;
     public float loopRotation;
     public float prevLoopRotation;
     public Transform DetachedCameraPosition;
+   
     
     public float maxCameraHeight;
     public float maxCameraTilt;
 
+
+    
+    public Vector3 rotationOffset;
+    public Vector3 offset;
     private Vector3 prevCarPos;
     private Vector3 currentCarPos;
 
@@ -32,132 +37,119 @@ public class CameraControl : MonoBehaviourPun {
     }
 
     void Start () {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach (GameObject player in players)
+        //foreach (GameObject player in players)
+        //{
+
+        //    if (player.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
+        //    {
+        //        Debug.Log("CameraGrab");
+        //        SetNewCar(player);
+        //    }
+
+        //}
+        CameraTargetObject = null;
+        CameraState = CameraPositions.ControlBehavior;
+        //prevCarPos = Car.transform.position;
+        //currentCarPos = prevCarPos;
+        DefaultPosition = null;
+        
+        
+    }
+
+    private void Update()
+    {
+       
+    }
+
+    void FixedUpdate ()
+    {
+        if (CameraTargetObject != null)
         {
-            
-            if (player.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
+            //prevCarPos = currentCarPos;
+            //currentCarPos = Car.transform.position;
+            //prevLoopRotation = loopRotation;
+            //loopRotation = Car.transform.rotation.x;
+            //CameraDesiredPosition.transform.position += (currentCarPos - prevCarPos);
+            switch (CameraState)
             {
-                Debug.Log("CameraGrab");
-                SetNewCar(player);
+                case CameraPositions.Default:
+                    DefaultCameraBehavior();
+                    break;
+                case CameraPositions.LoopBehavior:
+                    LoopCameraBehavior();
+                    break;
+                case CameraPositions.ControlBehavior:
+                    ControlCameraBehavior();
+                    break;
+                case CameraPositions.DetachedEgg:
+                    DetachedEggCameraBehavior();
+                    break;
+                default:
+                    break;
+
             }
 
         }
-        CameraState = CameraPositions.ControlBehavior;
-        DefaultSetup();
-        prevCarPos = Car.transform.position;
-        currentCarPos = Car.transform.position;
-        //if(Car == null)
-        Debug.Log("Player");
-        
-        
-    }
-
-	
-	void FixedUpdate () {
-        prevCarPos = currentCarPos;
-        currentCarPos = Car.transform.position;
-        prevLoopRotation = loopRotation;
-        loopRotation = Car.rotation.x;
-        //CameraDesiredPosition.transform.position += (currentCarPos - prevCarPos);
-        switch (CameraState)
-        {
-            case CameraPositions.Default:
-                DefaultCameraBehavior();
-                break;
-            case CameraPositions.LoopBehavior:
-                LoopCameraBehavior();
-                break;
-            case CameraPositions.ControlBehavior:
-                ControlCameraBehavior();
-                break;
-            case CameraPositions.DetachedEgg:
-                DetachedEggCameraBehavior();
-                break;
-            default:
-                break;
-                
-        }
-
-
+        else { Debug.Log("Target not set"); }
 
     }
 
-    public void SetNewCar ( GameObject NewCar )
+    public void SetCameraTarget ( GameObject target )
     {
-        if (NewCar.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
-        {
-            Car = NewCar.transform;
-            Debug.Log("Thats Mine");
+        //if (target.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
+        //{
+            CameraTargetObject = target;
+            Debug.Log("Camera is pointing at: " + CameraTargetObject);
 
-            CameraDesiredPosition = NewCar.transform.GetChild(NewCar.transform.childCount - 1).gameObject;
-        }
+            CameraDesiredPosition = CameraTargetObject.transform.GetChild(target.transform.childCount - 2).gameObject;
+            DefaultPosition = CameraTargetObject.transform.GetChild(target.transform.childCount - 1).gameObject;
+            Debug.Log(CameraDesiredPosition);
+        //}
+        CameraDesiredPosition.transform.position = CameraTargetObject.transform.position + offset;
+        DefaultPosition.transform.position = CameraTargetObject.transform.position + offset;
     }
 
-    public void RotateAroundCar()
+    private void DefaultCameraBehavior()
     {
-        
-        
-
-
-    }
-
-    public void DefaultCameraBehavior()
-    {
-        /*if(CameraDesiredPosition.transform.IsChildOf(Car))
-        {
-            GameObject TempCamera = new GameObject();
-
-            CameraDesiredPosition.transform.SetParent(TempCamera.transform);
-            TempCamera.transform.DetachChildren();
-            Destroy(TempCamera);
-        }*/
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, new Vector3(CameraDesiredPosition.transform.position.x, CameraDesiredPosition.transform.position.y, CameraDesiredPosition.transform.position.z), Time.deltaTime * smoothness);
-        transform.position = smoothPosition;
-
-        transform.LookAt(Car);
-        transform.Rotate(rotationOffset);
-        
+        CameraState = CameraPositions.Default;
+        CameraBehavior(CameraTargetObject, CameraDesiredPosition.transform, 0);
     }
 
     public void LoopCameraBehavior()
     {
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, new Vector3(CameraDesiredParentPosition.transform.position.x, CameraDesiredParentPosition.transform.position.y, CameraDesiredParentPosition.transform.position.z), Time.deltaTime * smoothness);
-        transform.position = smoothPosition;
-
-        //CameraDesiredPosition.transform.SetParent(Car);
-        
-        
-        transform.LookAt(Car, Car.up);
-        transform.Rotate(rotationOffset);
-
-        //CameraDesiredPosition.transform.RotateAround(Car.position, Car.up, (prevLoopRotation - loopRotation) );
+        CameraState = CameraPositions.LoopBehavior;
+        CameraBehavior(CameraTargetObject, DefaultPosition.transform, 1);
     }
 
-    public void ControlCameraBehavior()
+    private void ControlCameraBehavior()
     {
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, new Vector3(CameraDesiredPosition.transform.position.x, CameraDesiredPosition.transform.position.y, CameraDesiredPosition.transform.position.z), Time.deltaTime * smoothness);
-        transform.position = smoothPosition;
-
-        transform.LookAt(Car);
-        transform.Rotate(rotationOffset);
+        CameraState = CameraPositions.ControlBehavior;
+        CameraBehavior(CameraTargetObject, CameraDesiredPosition.transform, 0);
+      
         if (Input.GetAxis("R_XAxis_1") != 0)
         {
-            CameraDesiredPosition.transform.RotateAround(Car.transform.position, Vector3.up, Input.GetAxis("R_XAxis_1") * Time.deltaTime * -100);
+            CameraDesiredPosition.transform.RotateAround(CameraTargetObject.transform.position, Vector3.up, Input.GetAxis("R_XAxis_1") * Time.deltaTime * -100);
         }
         if (Input.GetAxis("R_YAxis_1") != 0)
         {
-            CameraDesiredPosition.transform.position += new Vector3(0, Input.GetAxis("R_YAxis_1") * Time.deltaTime * 10, 0);
+
+            if (CameraDesiredPosition.transform.position.y - (CameraTargetObject.transform.position + offset).y <= 10)
+            {
+                CameraDesiredPosition.transform.position += new Vector3(0, Input.GetAxis("R_YAxis_1") * Time.deltaTime * 100, 0);
+
+            }
+            else { Debug.Log("Camera Y-limit reached"); }
+        }
+        else
+        {
+            CameraBehavior(CameraTargetObject, DefaultPosition.transform, 0);
         }
     }
 
-    public void DefaultSetup()
-    {
-        CameraDesiredPosition.transform.position = Car.position + offset;
-    }
 
-    public void DetachedEggCloseUpCameraBehavior()
+    private void DetachedEggCloseUpCameraBehavior()
     {
         //Mathf.Pow((float)(FindObjectOfType<DetachedEgg>().SecondsSinceDetached() * 1.4), 2)
         //Vector3 smoothPosition = Vector3.Lerp(transform.position, DetachedCameraPosition.position,.8f);
@@ -166,15 +158,12 @@ public class CameraControl : MonoBehaviourPun {
         //transform.Rotate(rotationOffset);
         //transform.SetParent(DetachedEgg.transform);
         transform.SetParent(DetachedEgg.transform);
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, DetachedCameraPosition.position,.2f);
-        transform.position = smoothPosition;
-        Vector3 smoothAngles = Vector3.Lerp(transform.eulerAngles, DetachedCameraPosition.eulerAngles, .2f);
-        transform.eulerAngles = smoothAngles;
+        CameraBehavior(DetachedEgg, DetachedCameraPosition, 2);
     }
 
-    public void DetachedEggCameraBehavior()
+    private void DetachedEggCameraBehavior()
     {
-        if (CameraDesiredPosition.transform.IsChildOf(Car))
+        if (CameraDesiredPosition.transform.IsChildOf(CameraTargetObject.transform))
         {
             GameObject TempCamera = new GameObject();
 
@@ -182,10 +171,39 @@ public class CameraControl : MonoBehaviourPun {
             TempCamera.transform.DetachChildren();
             Destroy(TempCamera);
         }
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, new Vector3(DetachedCameraPosition.transform.position.x, DetachedCameraPosition.transform.position.y, DetachedCameraPosition.transform.position.z), Time.deltaTime * smoothness);
-        transform.position = smoothPosition;
+       // cameraBehavior(DetachedEgg, DetachedCameraPosition, 0);
+    }
+    public void CameraBehavior(GameObject lookAtObject, Transform cameraOrigin, int behavior) {
+        //DefaultCameraBehavior
+        if (behavior == 0)
+        {
+            transform.position = SmoothReposition(transform.position, cameraOrigin.position);
+            transform.LookAt(lookAtObject.transform);
+        }
+        //LoopCameraBehavior
+        else if (behavior == 1)
+        {
+            transform.position = SmoothReposition(transform.position, cameraOrigin.position);
+            transform.LookAt(lookAtObject.transform, lookAtObject.transform.up);
+        }
+        //DetachedEggCloseUpCameraBehavior
+        else if (behavior == 2)
+        {
+            transform.position = Reposition(transform.position, cameraOrigin.position, .2f);
+            transform.eulerAngles = Reposition(transform.eulerAngles, cameraOrigin.eulerAngles, .2f);
+        }
+        //DetachedEggCameraBehavior
+        else if (behavior == 3) {
 
-        transform.LookAt(DetachedEgg.transform);
+        }
+
         transform.Rotate(rotationOffset);
+    }
+    public Vector3 SmoothReposition(Vector3 start, Vector3 end) {
+        return Reposition(start, end, Time.deltaTime * smoothness);
+    }
+
+    public Vector3 Reposition(Vector3 start, Vector3 end, float scale) {
+         return Vector3.Lerp(start, end, scale);
     }
 }
