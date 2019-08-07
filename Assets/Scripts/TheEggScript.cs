@@ -68,6 +68,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
     void FixedUpdate () {
 		if((isDrivable && photonView.IsMine) || !FindObjectOfType<SceneInfo>().multiplayer)
         {
+            ConstantPush();
             GetDriving();
             BoostCheck();
             RotateControl();
@@ -141,7 +142,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         ebrake = Input.GetButton("LB_1");
         if (Input.GetAxis("TriggersL_1") > 0)
         {
-            braking = 100000f;
+            braking = 300000f;
         }
         else braking = 0;
 
@@ -154,8 +155,11 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         {
             motor = 0;
         }
-        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.15f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,.8f));
-        
+        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.15f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,.85f));
+        if(steering > 50)
+        {
+            steering = 50;
+        }
 
         if (ebrake)
         {
@@ -168,7 +172,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
                 RFWheel.sidewaysFriction = SpareTire.sidewaysFriction;
                 LRWheel.sidewaysFriction = SpareTire.sidewaysFriction;
                 RRWheel.sidewaysFriction = SpareTire.sidewaysFriction;
-                maxSteeringAngle += 50f;
+                
             }
             if (WheelsGroundedCheck())
             {
@@ -176,7 +180,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
                 
             }
             startedBraking = false;
-            
+           
             
         }
         else
@@ -186,7 +190,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
             RFWheel.sidewaysFriction = NormalTire.sidewaysFriction;
             LRWheel.sidewaysFriction = NormalTire.sidewaysFriction;
             RRWheel.sidewaysFriction = NormalTire.sidewaysFriction;
-            maxSteeringAngle = 60;
+            
 
 
         }
@@ -279,6 +283,14 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         touchingGround = false;
     }
 
+    private void ConstantPush()
+    {
+        if(RRWheel.isGrounded || RFWheel.isGrounded || LRWheel.isGrounded || LFWheel.isGrounded)
+        {
+            GetComponent<Rigidbody>().AddRelativeForce(0, -100000f, 0, ForceMode.Force);
+        }
+        
+    }
 
 }
 

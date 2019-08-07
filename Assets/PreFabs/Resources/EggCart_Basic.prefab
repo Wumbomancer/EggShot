@@ -604,7 +604,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096036823245264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.94, y: -1.18, z: -0.47}
+  m_LocalPosition: {x: -1.02, y: -1.18, z: -0.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4400995556754060}
@@ -1778,7 +1778,7 @@ MonoBehaviour:
     steering: 1
     braking: 1
   maxMotorTorque: 80000
-  maxSteeringAngle: 60
+  maxSteeringAngle: 50
   maxBrakeTorque: 1000
   boostPower: 450000
   rotateSpeed: 4.6
@@ -1814,7 +1814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WheelL: {fileID: 146708648089148334}
   WheelR: {fileID: 146294020131161410}
-  AntiRoll: 100
+  AntiRoll: 200
 --- !u!114 &114453472426534350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1867,7 +1867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WheelL: {fileID: 146044317365692232}
   WheelR: {fileID: 146914175057352330}
-  AntiRoll: 100
+  AntiRoll: 200
 --- !u!114 &114900179238161176
 MonoBehaviour:
   m_ObjectHideFlags: 1

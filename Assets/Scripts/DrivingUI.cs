@@ -27,17 +27,7 @@ public class DrivingUI : MonoBehaviourPunCallbacks {
         NumbersLookup[9] = Resources.Load("Numbers/Number9") as GameObject;
         Debug.Log("Filled Numbers Lookup Table");
 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject player in players)
-        {
-
-            if (player.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
-            {
-                Debug.Log("CameraGrab");
-                Car = player;
-            }
-
-        }
+        StartCoroutine(CameraGrab());
     }
 
     // Update is called once per frame
@@ -67,5 +57,21 @@ public class DrivingUI : MonoBehaviourPunCallbacks {
         }
 
 	}
+
+    IEnumerator CameraGrab()
+    {
+        yield return new WaitForSeconds(.2f);
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+
+            if (player.GetPhotonView().IsMine || !FindObjectOfType<SceneInfo>().multiplayer)
+            {
+                Debug.Log("CameraGrab");
+                Car = player;
+            }
+
+        }
+    }
     
 }
