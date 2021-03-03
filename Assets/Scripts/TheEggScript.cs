@@ -155,7 +155,7 @@ public class TheEggScript : MonoBehaviourPunCallbacks {
         {
             motor = 0;
         }
-        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.15f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,.85f));
+        steering = maxSteeringAngle * Input.GetAxis("L_XAxis_1") /(.20f*Mathf.Pow(GetComponent<Rigidbody>().velocity.magnitude,.9f));
         if(steering > 50)
         {
             steering = 50;

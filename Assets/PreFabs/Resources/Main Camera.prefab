@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 65963823968624658}
   - component: {fileID: 114673605247445986}
   - component: {fileID: 114019575709810072}
+  - component: {fileID: 114142856661467036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -148,6 +149,18 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &114142856661467036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1788175440747942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f85d5c881c679e4ea97f2c8d460f00d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pixelEffect: {fileID: 2100000, guid: cde896ebd60fd0349bf7f659e3c94247, type: 2}
 --- !u!114 &114673605247445986
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -52,20 +52,20 @@ WheelCollider:
     spring: 5000
     damper: 0
     targetPosition: 1
-  m_SuspensionDistance: 5
+  m_SuspensionDistance: 10
   m_ForceAppPointDistance: 0
   m_Mass: 10000
   m_WheelDampingRate: 0.1
   m_ForwardFriction:
-    m_ExtremumSlip: 500
-    m_ExtremumValue: 500
-    m_AsymptoteSlip: 500
-    m_AsymptoteValue: 500
-    m_Stiffness: 5
+    m_ExtremumSlip: 1000
+    m_ExtremumValue: 1000
+    m_AsymptoteSlip: 1000
+    m_AsymptoteValue: 1000
+    m_Stiffness: 10
   m_SidewaysFriction:
     m_ExtremumSlip: 500
     m_ExtremumValue: 500
     m_AsymptoteSlip: 500
     m_AsymptoteValue: 500
-    m_Stiffness: 5
+    m_Stiffness: 10
   m_Enabled: 1

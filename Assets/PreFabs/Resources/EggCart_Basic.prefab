@@ -1814,7 +1814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WheelL: {fileID: 146708648089148334}
   WheelR: {fileID: 146294020131161410}
-  AntiRoll: 200
+  AntiRoll: 400
 --- !u!114 &114453472426534350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1867,7 +1867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WheelL: {fileID: 146044317365692232}
   WheelR: {fileID: 146914175057352330}
-  AntiRoll: 200
+  AntiRoll: 400
 --- !u!114 &114900179238161176
 MonoBehaviour:
   m_ObjectHideFlags: 1
